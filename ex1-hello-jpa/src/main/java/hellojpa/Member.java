@@ -8,22 +8,26 @@ import java.util.Date;
 @SequenceGenerator(name="member_seq_generator", sequenceName = "member_seq")
 public class Member {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
+    @Id @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long Id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "USERNAME")
     private String username;
 
-    public Member() {
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
-    }
+    public Long getId() { return Id; }
 
-    public String getUsername() {
-        return username;
-    }
+    public void setId(Long id) { Id = id; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public void setTeam(Team team) { this.team = team; }
+
+    public Team getTeam() { return team; }
 }
