@@ -1,6 +1,9 @@
 package hellojpa;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,14 +20,12 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Member member = new Member();
-            member.setUsername("memberA");
-            member.setHomeAddress(new Address("city", "123", "street"));
-            member.setWorkPeriod(new Period());
 
-            em.persist(member);
 
-            tx.commit();
+           em.createNativeQuery("SELECT MEMBER_ID, city, street, zipcode, USERNAME FROM MEMBER")
+                   .getResultList();
+
+           tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
