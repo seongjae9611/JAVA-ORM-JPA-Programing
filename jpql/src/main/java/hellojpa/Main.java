@@ -51,13 +51,15 @@ public class Main {
             em.clear();
 
 
-            String query = "SELECT m FROM Member m";
+            String query = "SELECT t FROM Team t WHERE t.id = :team";
 
-            List<Member> result = em.createQuery(query, Member.class)
+            List<Team> result = em.createQuery(query, Team.class)
+                    .setParameter("team", teamA.getId())
                     .getResultList();
 
-            for (Member member : result) {
-                System.out.println("member: " + member.getName() + ", " + member.getTeam().getName() + ", " + member.getId());
+            for (Team team : result) {
+                System.out.println("member: " + team.getName() + ", " + team.getMembers());
+
             }
 
             tx.commit();
